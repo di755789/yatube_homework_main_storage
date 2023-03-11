@@ -1,6 +1,8 @@
 from django.shortcuts import get_object_or_404, render
 from .models import Post, Group
 POST_COUNT = 10
+
+
 def index(request):
     template = 'posts/group_list.html'
     posts = Post.objects.order_by('-pub_date')[:POST_COUNT]
@@ -8,7 +10,8 @@ def index(request):
         'posts': posts,
         'title': "Последние обновления на сайте",
     }
-    return render(request, template, context) 
+    return render(request, template, context)
+
 
 def group_posts(request, slug):
     template = 'posts/group_list.html'
