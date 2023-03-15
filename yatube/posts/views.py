@@ -4,11 +4,10 @@ POST_COUNT = 10
 
 
 def index(request):
-    template = 'posts/group_list.html'
-    posts = Post.objects.order_by('-pub_date')[:POST_COUNT]
+    template = 'posts/index.html'
+    posts = Post.objects.all()[:POST_COUNT]
     context = {
         'posts': posts,
-        'title': "Последние обновления на сайте",
     }
     return render(request, template, context)
 
@@ -16,10 +15,9 @@ def index(request):
 def group_posts(request, slug):
     template = 'posts/group_list.html'
     group = get_object_or_404(Group, slug=slug)
-    posts = Post.objects.filter(group=group).order_by('-pub_date')[:POST_COUNT]
+    posts = group.posts.select_related('group')[:POST_COUNT]
     context = {
         'group': group,
         'posts': posts,
-        'title': "Все записи группы",
     }
     return render(request, template, context)
