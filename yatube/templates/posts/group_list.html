@@ -7,7 +7,7 @@
   <h1>{{ group.title }}</h1>
   <p>{{ group.description|linebreaks }}</p>
   <br>
-{% for post in posts %}
+{% for post in page_obj %}
   <article>
     <ul>
       <li>
@@ -23,4 +23,5 @@
    <hr>
   {% endif %}
   {% endfor %}
+  {% include 'posts/includes/paginator.html' %}
 {% endblock %} 
